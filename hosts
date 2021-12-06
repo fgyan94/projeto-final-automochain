@@ -1,0 +1,23 @@
+﻿################################## <PROJETO FINAL> #################################################
+
+127.0.0.1 localhost
+127.0.0.1 montadora.ciag
+127.0.0.1 sistemista.ciag
+127.0.0.1 orderer0.montadora.ciag
+127.0.0.1 orderer1.montadora.ciag
+127.0.0.1 orderer2.montadora.ciag
+127.0.0.1 peer0.montadora.ciag
+127.0.0.1 peer1.montadora.ciag
+127.0.0.1 peer2.montadora.ciag
+127.0.0.1 peer0.sistemista.ciag
+127.0.0.1 peer1.sistemista.ciag
+127.0.0.1 peer2.sistemista.ciag
+
+################################## </PROJETO FINAL> #################################################
+                                 
+# Added by Docker Desktop
+172.29.91.31 host.docker.internal
+172.29.91.31 gateway.docker.internal
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section

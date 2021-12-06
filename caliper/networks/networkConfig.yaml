@@ -1,0 +1,37 @@
+name: Caliper test
+version: "2.0.0"
+
+caliper:
+  blockchain: fabric
+  sutOptions:
+    mutualTls: true
+
+channels:
+  - channelName: condominiochannel
+    contracts:
+      - id: basic
+
+organizations:
+  - mspid: MontadoraMSP
+    identities:
+      certificates:
+        - name: "User1"
+          clientPrivateKey:
+            path: "../test-network/organizations/peerOrganizations/montadora.ciag/users/User1@montadora.ciag/msp/keystore/priv_sk"
+          clientSignedCert:
+            path: "../test-network/organizations/peerOrganizations/montadora.ciag/users/User1@montadora.ciag/msp/signcerts/User1@montadora.ciag-cert.pem"
+    connectionProfile:
+      path: "../test-network/organizations/peerOrganizations/montadora.ciag/connection-montadora.yaml"
+      discover: true
+  - mspid: SistemistaMSP
+    identities:
+      certificates:
+        - name: "User1"
+          clientPrivateKey:
+            path: "../test-network/organizations/peerOrganizations/sistemista.ciag/users/Admin@sistemista.ciag/msp/keystore/priv_sk"
+          clientSignedCert:
+            path: "../test-network/organizations/peerOrganizations/sistemista.ciag/users/Admin@sistemista.ciag/msp/signcerts/Admin@sistemista.ciag-cert.pem"
+    connectionProfile:
+      path: "../test-network/organizations/peerOrganizations/sistemista.ciag/connection-sistemista.yaml"
+      discover: true
+  

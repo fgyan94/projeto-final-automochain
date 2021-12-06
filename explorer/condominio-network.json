@@ -1,0 +1,110 @@
+{
+	"name": "condominio-network",
+	"version": "1.0.0",
+	"client": {
+		"tlsEnable": true,
+		"adminCredential": {
+			"id": "exploreradmin",
+			"password": "exploreradminpw"
+		},
+		"enableAuthentication": false,
+		"organization": "MontadoraMSP",
+		"connection": {
+			"timeout": {
+				"peer": {
+					"endorser": "300"
+				},
+				"orderer": "300"
+			}
+		}
+	},
+	"channels": {
+		"condominiochannel": {
+			"peers": {
+				"peer0.montadora.ciag": {},
+				"peer1.montadora.ciag": {},
+				"peer2.montadora.ciag": {},
+				"peer0.sistemista.ciag": {},
+				"peer1.sistemista.ciag": {},
+				"peer2.sistemista.ciag": {}
+			},
+			"connection": {
+				"timeout": {
+					"peer": {
+						"endorser": "6000",
+						"eventHub": "6000",
+						"eventReg": "6000"
+					}
+				}
+			}
+		}
+	},
+	"organizations": {
+		"MontadoraMSP": {
+			"mspid": "MontadoraMSP",
+			"adminPrivateKey": {
+				"path": "/tmp/crypto/peerOrganizations/montadora.ciag/users/Admin@montadora.ciag/msp/keystore/priv_sk"
+			},
+			"peers": [
+				"peer0.montadora.ciag",
+				"peer1.montadora.ciag",
+				"peer2.montadora.ciag"
+			],
+			"signedCert": {
+				"path": "/tmp/crypto/peerOrganizations/montadora.ciag/users/Admin@montadora.ciag/msp/signcerts/Admin@montadora.ciag-cert.pem"
+			}
+		},
+		"SistemistaMSP": {
+			"mspid": "SistemistaMSP",
+			"adminPrivateKey": {
+				"path": "/tmp/crypto/peerOrganizations/sistemista.ciag/users/Admin@sistemista.ciag/msp/keystore/priv_sk"
+			},
+			"peers": [
+				"peer0.sistemista.ciag",
+				"peer1.sistemista.ciag",
+				"peer2.sistemista.ciag"
+			],
+			"signedCert": {
+				"path": "/tmp/crypto/peerOrganizations/sistemista.ciag/users/Admin@sistemista.ciag/msp/signcerts/Admin@sistemista.ciag-cert.pem"
+			}
+		}
+	},
+	"peers": {
+		"peer0.montadora.ciag": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/montadora.ciag/peers/peer0.montadora.ciag/tls/ca.crt"
+			},
+			"url": "grpcs://peer0.montadora.ciag:7051"
+		},
+		"peer1.montadora.ciag": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/montadora.ciag/peers/peer1.montadora.ciag/tls/ca.crt"
+			},
+			"url": "grpcs://peer1.montadora.ciag:7151"
+		},
+		"peer2.montadora.ciag": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/montadora.ciag/peers/peer2.montadora.ciag/tls/ca.crt"
+			},
+			"url": "grpcs://peer2.montadora.ciag:7251"
+		},
+		"peer0.sistemista.ciag": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/sistemista.ciag/peers/peer0.sistemista.ciag/tls/ca.crt"
+			},
+			"url": "grpcs://peer0.sistemista.ciag:9051"
+		},
+		"peer1.sistemista.ciag": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/sistemista.ciag/peers/peer1.sistemista.ciag/tls/ca.crt"
+			},
+			"url": "grpcs://peer1.sistemista.ciag:9151"
+		},
+		"peer2.sistemista.ciag": {
+			"tlsCACerts": {
+				"path": "/tmp/crypto/peerOrganizations/sistemista.ciag/peers/peer2.sistemista.ciag/tls/ca.crt"
+			},
+			"url": "grpcs://peer2.sistemista.ciag:9251"
+		}
+	}
+}

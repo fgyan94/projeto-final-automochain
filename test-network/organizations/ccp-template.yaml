@@ -1,0 +1,53 @@
+---
+name: condominio-${DOMAIN}
+version: 1.0.0
+client:
+  organization: ${ORG}
+  connection:
+    timeout:
+      peer:
+        endorser: '300'
+organizations:
+  ${ORG}:
+    mspid: ${ORG}MSP
+    peers:
+    - peer0.${DOMAIN}.ciag
+    - peer1.${DOMAIN}.ciag
+    - peer2.${DOMAIN}.ciag
+    certificateAuthorities:
+    - ca.${DOMAIN}.ciag
+peers:
+  peer0.${DOMAIN}.ciag:
+    url: grpcs://localhost:${P0PORT}
+    tlsCACerts:
+      pem: |
+          ${PEERPEM}
+    grpcOptions:
+      ssl-target-name-override: peer0.${DOMAIN}.ciag
+      hostnameOverride: peer0.${DOMAIN}.ciag
+  peer1.${DOMAIN}.ciag:
+    url: grpcs://localhost:${P1PORT}
+    tlsCACerts:
+      pem: |
+          ${PEERPEM}
+    grpcOptions:
+      ssl-target-name-override: peer1.${DOMAIN}.ciag
+      hostnameOverride: peer1.${DOMAIN}.ciag
+  peer2.${DOMAIN}.ciag:
+    url: grpcs://localhost:${P2PORT}
+    tlsCACerts:
+      pem: |
+          ${PEERPEM}
+    grpcOptions:
+      ssl-target-name-override: peer2.${DOMAIN}.ciag
+      hostnameOverride: peer2.${DOMAIN}.ciag
+certificateAuthorities:
+  ca.${DOMAIN}.ciag:
+    url: https://localhost:${CAPORT}
+    caName: ca-${DOMAIN}
+    tlsCACerts:
+      pem: 
+        - |
+          ${CAPEM}
+    httpOptions:
+      verify: false

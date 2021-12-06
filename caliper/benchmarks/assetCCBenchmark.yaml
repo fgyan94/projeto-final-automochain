@@ -1,0 +1,74 @@
+test:
+  name: "Teste Blockchain - Rede Condomínio"
+  description: "Avaliação de Desempenho da Rede Condomínio"
+  workers:
+    type: local
+    number: 6
+  rounds:
+    - label: "CreateAsset-TX-500-Workers-6"
+      description: "Create asset benchmark - Projeto Final"
+      txNumber: 500
+      rateControl:
+        { type: "linear-rate", opts: { "startingTps": 5, "finishingTps": 30 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: basic
+          assets: 500
+    - label: "CreateAsset-TX-1000-Workers-6"
+      description: "Create asset benchmark - Projeto Final"
+      txNumber: 1000
+      rateControl:
+        { type: "linear-rate", opts: { "startingTps": 5, "finishingTps": 30 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: basic
+          assets: 1000
+    - label: "CreateAsset-TX-4000-Workers-6"
+      description: "Create asset benchmark - Projeto Final"
+      txNumber: 4000
+      rateControl:
+        { type: "linear-rate", opts: { "startingTps": 5, "finishingTps": 30 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: basic
+          assets: 4000
+    - label: "CreateAsset-TX-7000-Workers-6"
+      description: "Create asset benchmark - Projeto Final"
+      txNumber: 7000
+      rateControl:
+        { type: "linear-rate", opts: { "startingTps": 5, "finishingTps": 30 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: basic
+          assets: 7000
+    - label: "CreateAsset-TX-10000-Workers-6"
+      description: "Create asset benchmark - Projeto Final"
+      txNumber: 10000
+      rateControl:
+        { type: "linear-rate", opts: { "startingTps": 5, "finishingTps": 30 } }
+      workload:
+        module: workload/createAsset.js
+        arguments:
+          contractId: basic
+          assets: 10000
+monitors:
+  resource:
+    - module: docker
+      options:
+        interval: 1
+        containers:
+          [
+            "peer0.montadora.ciag",
+            "peer1.montadora.ciag",
+            "peer2.montadora.ciag",
+            "peer0.sistemista.ciag",
+            "peer1.sistemista.ciag",
+            "peer2.sistemista.ciag",
+            "orderer0.montadora.ciag",
+            "orderer1.montadora.ciag",
+            "orderer2.montadora.ciag"
+          ]

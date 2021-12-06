@@ -1,0 +1,9 @@
+{
+	"network-configs": {
+		"condominio-network": {
+			"name": "condominio-network",
+			"profile": "./condominio-network.json"
+		}
+	},
+	"license": "Apache-2.0"
+}

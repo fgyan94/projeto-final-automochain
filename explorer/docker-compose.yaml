@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: Apache-2.0
+version: "2.1"
+
+volumes:
+  pgdata:
+  walletstore:
+
+networks:
+  blockchain.ciag:
+    external:
+      name: net_condominio
+
+services:
+  explorerdb.blockchain.ciag:
+    image: hyperledger/explorer-db:latest
+    container_name: explorerdb.blockchain.ciag
+    hostname: explorerdb.blockchain.ciag
+    environment:
+      - DATABASE_DATABASE=fabricexplorer
+      - DATABASE_USERNAME=hppoc
+      - DATABASE_PASSWORD=password
+    healthcheck:
+      test: "pg_isready -h localhost -p 5432 -q -U postgres"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - blockchain.ciag
+
+  explorer.blockchain.ciag:
+    image: hyperledger/explorer:latest
+    container_name: explorer.blockchain.ciag
+    hostname: explorer.blockchain.ciag
+    environment:
+      - DATABASE_HOST=explorerdb.blockchain.ciag
+      - DATABASE_DATABASE=fabricexplorer
+      - DATABASE_USERNAME=hppoc
+      - DATABASE_PASSWD=password
+      - LOG_LEVEL_APP=debug
+      - LOG_LEVEL_DB=debug
+      - LOG_LEVEL_CONSOLE=info
+      - LOG_CONSOLE_STDOUT=true
+      - DISCOVERY_AS_LOCALHOST=false
+    volumes:
+      - ./config.json:/opt/explorer/app/platform/fabric/config.json
+      - ./condominio-network.json:/opt/explorer/app/platform/fabric/condominio-network.json
+      - ../test-network/organizations:/tmp/crypto
+      - walletstore:/opt/explorer/wallet
+    ports:
+      - 8080:8080
+    depends_on:
+      explorerdb.blockchain.ciag:
+        condition: service_healthy
+    networks:
+      - blockchain.ciag

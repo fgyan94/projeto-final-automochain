@@ -1,0 +1,71 @@
+export CORE_PEER_LOCALMSPID="MontadoraMSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/montadora.ciag/peers/peer1.montadora.ciag/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/montadora.ciag/users/Admin@montadora.ciag/msp
+export CORE_PEER_ADDRESS=localhost:7151
+export ORDERER_CA=${PWD}/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem
+export PACKAGE_ID=
+
+export CORE_PEER_LOCALMSPID="SistemistaMSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/sistemista.ciag/peers/peer1.sistemista.ciag/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/sistemista.ciag/users/Admin@sistemista.ciag/msp
+export CORE_PEER_ADDRESS=localhost:9151
+export ORDERER_CA=${PWD}/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem
+export PACKAGE_ID=basic_1.0:a7cb58fe7e63aec0ac741f2766c052bfe9205a44440e5a4cbb988c43f66ab887
+
+export CORE_PEER_LOCALMSPID="MontadoraMSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/montadora.ciag/peers/peer2.montadora.ciag/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/montadora.ciag/users/Admin@montadora.ciag/msp
+export CORE_PEER_ADDRESS=localhost:7251
+export ORDERER_CA=${PWD}/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem
+export PACKAGE_ID=basic_1.0:a7cb58fe7e63aec0ac741f2766c052bfe9205a44440e5a4cbb988c43f66ab887
+
+export CORE_PEER_LOCALMSPID="SistemistaMSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/sistemista.ciag/peers/peer2.sistemista.ciag/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/sistemista.ciag/users/Admin@sistemista.ciag/msp
+export CORE_PEER_ADDRESS=localhost:9251
+export ORDERER_CA=${PWD}/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem
+export PACKAGE_ID=basic_1.0:a7cb58fe7e63aec0ac741f2766c052bfe9205a44440e5a4cbb988c43f66ab887
+
+Steps:
+1. install chaincode
+2. approveformyorg montadora
+3. checkcommitreadiness montadora
+4. checkcommitreadiness sistemista
+2. approveformyorg sistemista
+3. checkcommitreadiness montadora
+4. checkcommitreadiness sistemista
+5. commit chaincode
+
+
+peer lifecycle chaincode approveformyorg -o localhost:6130 --ordererTLSHostnameOverride orderer0.montadora.ciag --tls --cafile ${PWD}/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem --channelID condominiochannel --name basic --version 1.0 --package-id basic_1.0:a7cb58fe7e63aec0ac741f2766c052bfe9205a44440e5a4cbb988c43f66ab887 --sequence 1 --init-required
+
+gossip peers
+
+export CORE_PEER_TLS_ENABLED=true
+export ORDERER_CA=${PWD}/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem
+export CORE_PEER_LOCALMSPID="MontadoraMSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/montadora.ciag/peers/peer0.montadora.ciag/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/montadora.ciag/users/Admin@montadora.ciag/msp
+export CORE_PEER_ADDRESS=localhost:7051
+
+export CORE_PEER_TLS_ENABLED=true
+export ORDERER_CA=${PWD}/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem
+export CORE_PEER_LOCALMSPID="SistemistaMSP"
+export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/organizations/peerOrganizations/sistemista.ciag/peers/peer0.sistemista.ciag/tls/ca.crt
+export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/sistemista.ciag/users/Admin@sistemista.ciag/msp
+export CORE_PEER_ADDRESS=localhost:9051
+
+peer channel fetch 0 genesis.block -c condominiochannel -o localhost:6130 --tls --cafile ${PWD}/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem
+
+
+peer lifecycle chaincode approveformyorg -o localhost:6130 --ordererTLSHostnameOverride orderer0.montadora.ciag --tls --cafile /e/Yan/Hyperledger/projeto-final/test-network/organizations/ordererOrganizations/montadora.ciag/tlsca/tlsca.montadora.ciag-cert.pem --channelID condominiochannel --name basic --version 1.0 --package-id basic_1.0:a7cb58fe7e63aec0ac741f2766c052bfe9205a44440e5a4cbb988c43f66ab887 --sequence 1 --init-required
+
+
+peer lifecycle chaincode approveformyorg -o localhost:6130 --ordererTLSHostnameOverride orderer0.montadora.ciag --tls --cafile 
+organizations/ordererOrganizations/montadora.ciag/orderers/orderer0.montadora.ciag/msp/tlscacerts/tlsca.orderer0.montadora.ciag-cert.pem 
+--channelID condominiochannel --name basic --version 1.0 
+--package-id basic_1.0:a7cb58fe7e63aec0ac741f2766c052bfe9205a44440e5a4cbb988c43f66ab887 --sequence 1 --init-required
+
+
+peer chaincode invoke -o localhost:6130 --ordererTLSHostnameOverride orderer0.montadora.ciag --tls --cafile 
+$ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS --isInit -c ${fcn_call} >&log.txt
